@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from 'react-hook-form';
 import { Eye, EyeOff } from 'lucide-react';
 import { useState } from "react";
+import { createUser } from "../api/register.api";
 
 export function Register() {
     const {
@@ -9,11 +10,18 @@ export function Register() {
         handleSubmit,
         formState: { errors }
     } = useForm();
+    const navigate = useNavigate();
 
     const [ showPassword, setShowPassword ] = useState(false)
 
-    const onSubmit = handleSubmit((data) => {
-        console.log("datos enviados", data);
+    const onSubmit = handleSubmit(async (data) => {
+        try {
+            await createUser(data);
+            alert("Usuario creado correctamente");
+            navigate("/");
+        } catch (err) {
+            console.error("Error: no se pudo crear el usuario", err)
+        }
     })
 
   return (
