@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Eye, EyeOff } from 'lucide-react';
+import { supabase } from "../api/supabaseClient";
 
 export function LoginPage() {
 
@@ -12,19 +13,35 @@ export function LoginPage() {
     } = useForm();
 
     const [showPassword, setShowPassword ] = useState(false);
+    const [message, setMessage] = useState("");
+    const navigate = useNavigate();
 
-    const onSubmit = handleSubmit((data) =>{
-        console.log("datos enviados", data);
-    })
+      const onSubmit = handleSubmit(async (data) => {
+    const { email, password } = data;
+
+    const { data: userData, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) {
+      console.error("Error al iniciar sesión:", error.message);
+      setMessage("Credenciales incorrectas o usuario no registrado.");
+    } else {
+      console.log("Usuario logueado ✅:", userData);
+      setMessage("Inicio de sesión exitoso 🎬");
+      navigate("/");
+    }
+  });
 
   return (
     <div className="register-container">
         <h2>Iniciar Sesion</h2>
         <form onSubmit={onSubmit}>
-            <input type="text" placeholder="username"
-            {...register('username', {required: true })}
+            <input type="email" placeholder="correo electronico"
+            {...register('email', {required: true })}
             />
-            {errors.username && <span>Obligatorio ingresar el nombre de usuario</span>}
+            {errors.email && <span>Obligatorio ingresar el correo electronico</span>}
             <div style={{ position: "relative" }}>
                     <input type={showPassword ? "text" : "password"} 
                     placeholder="contraseña" 
@@ -50,6 +67,7 @@ export function LoginPage() {
                 {errors.password && <span>Obligatorio ingresar la contraseña</span>}
             <Link to="/registrarse">¿No tienes cuenta? registrate aquí</Link>
             <button>Iniciar Sesion</button>
+            {message && <p>{message}</p>}
         </form>
     </div>
   )

@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from 'react-hook-form';
 import { Eye, EyeOff } from 'lucide-react';
 import { useState } from "react";
-import { createUser } from "../api/register.api";
+import { supabase } from "../api/supabaseClient";
 
 export function Register() {
     const {
@@ -11,19 +11,29 @@ export function Register() {
         formState: { errors }
     } = useForm();
     const navigate = useNavigate();
-
+    const [message, setMessage] = useState("");
     const [ showPassword, setShowPassword ] = useState(false)
 
     const onSubmit = handleSubmit(async (data) => {
-        console.log(data);
-        try {
-            await createUser(data);
-            alert("Usuario creado correctamente");
-            navigate("/");
-        } catch (err) {
-            console.error("Error: no se pudo crear el usuario", err)
-        }
-    })
+    const { email, password, nombre, apellido, username } = data;
+
+    const { data: userData, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: { nombre, apellido, username },
+      },
+    });
+
+    if (error) {
+      console.error("Error al registrar:", error.message);
+      setMessage("No se pudo registrar el usuario.");
+    } else {
+      console.log("Usuario registrado:", userData);
+      setMessage("Registro exitoso. Revisa tu correo para confirmar tu cuenta.");
+      navigate("/")
+    }
+  });
 
   return (
         <div className="register-container">
@@ -70,6 +80,7 @@ export function Register() {
                 {errors.apellido && <span>Obligatorio ingresar el apellido</span>}
                 <Link to="/Iniciar-Sesion">¿Ya tienes cuenta?</Link>
                 <button>Registrarse</button>
+                {message && <p>{message}</p>}
             </form>
         </div>
   )
