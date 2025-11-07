@@ -66,10 +66,9 @@ export function CrearPelicula() {
   };
 
   return (
-    <div className="form-container">
+    <div className="register-container">
       <h2>Crear Película</h2>
-      <form onSubmit={onSubmit} className="form-content">
-
+      <form onSubmit={onSubmit}>
         <input
           type="text"
           placeholder="Título"

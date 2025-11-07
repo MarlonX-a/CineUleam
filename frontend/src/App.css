@@ -272,6 +272,124 @@ a:hover {
   }
 }
 
+.register-container {
+  position: relative;
+  width: 100vw;          
+  min-height: 100vh;
+  display: flex;
+  justify-content: center; 
+  align-items: center;     
+  flex-direction: column;
+  background: radial-gradient(circle at top, #0f0f1a, #1a1a2e 70%);
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+  padding-top: 80px; 
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+.register-container form {
+  background: rgba(26, 26, 46, 0.95);
+  padding: 2rem;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  box-shadow: 0 0 20px rgba(255, 0, 102, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin: 0 auto; 
+}
+
+.register-container h2 {
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  color: #ff0066;
+  text-shadow: 0 0 10px rgba(255, 0, 102, 0.5);
+}
+
+.register-container input,
+.register-container select,
+.register-container textarea {
+  padding: 0.9rem;
+  border: 1px solid #333;
+  border-radius: 6px;
+  background-color: #222;
+  color: #fff;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.register-container input:focus,
+.register-container select:focus,
+.register-container textarea:focus {
+  border-color: #ff0066;
+  box-shadow: 0 0 6px #ff0066;
+}
+
+.register-container span {
+  color: #ff4d4d;
+  font-size: 0.85rem;
+  text-align: left;
+}
+
+.register-container button[type="submit"] {
+  background-color: #ff0066;
+  color: #fff;
+  border: none;
+  padding: 0.9rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.register-container button[type="submit"]:hover {
+  background-color: #e6005a;
+  transform: scale(1.03);
+}
+
+/* Multi-select de géneros */
+.multi-select {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.opciones-genero {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.opciones-genero label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Mensaje de formulario */
+.form-message {
+  margin-top: 0.5rem;
+  color: #ffcc00;
+  font-weight: 500;
+}
+
+/* Responsivo */
+@media (max-width: 480px) {
+  .register-container form {
+    width: 95%;
+    padding: 1.5rem;
+  }
+
+  .register-container h2 {
+    font-size: 1.6rem;
+  }
+}
+
 
 
 
