@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form"
 import { supabase } from "../api/supabaseClient";
+import { useNavigate } from "react-router-dom";
 
 export function SalaPage() {
     const {
@@ -7,6 +8,7 @@ export function SalaPage() {
         handleSubmit,
         formState: { errors }
     } = useForm();
+    const navigate = useNavigate();
 
     const onSubmit = handleSubmit( async (data) =>{
         try {
@@ -19,6 +21,7 @@ export function SalaPage() {
          }])
          if (insertError) throw insertError;
          alert("Sala creada correctamente");   
+         navigate("/")
         } catch (err) {
             console.error(err);
         }
@@ -27,7 +30,7 @@ export function SalaPage() {
 
 
   return (
-    <div>
+    <div className="register-container">
         <form onSubmit={onSubmit}>
             <input type="text" placeholder="Nombre" 
             {...register('nombre', { required: true })}

@@ -6,6 +6,7 @@ import { LoginPage } from './Pages/LoginPage';
 import { PeliculasAdmin } from './Pages/PeliculaAdmin';
 import { CrearPelicula } from './Pages/CrearPelicula';
 import { SalaPage } from './Pages/SalaPage';
+import { FuncionPage } from './Pages/FuncionPage';
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
         <Route path='/pelicula-admin' element={<PeliculasAdmin />} />
         <Route path='/crear-pelicula' element={<CrearPelicula />} />
         <Route path='/crear-sala' element={<SalaPage />} />
+        <Route path=':id/crear-funcion' element={<FuncionPage />} />
         
       </Routes>
     </>
