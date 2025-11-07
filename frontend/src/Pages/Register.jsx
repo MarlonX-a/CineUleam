@@ -15,6 +15,7 @@ export function Register() {
     const [ showPassword, setShowPassword ] = useState(false)
 
     const onSubmit = handleSubmit(async (data) => {
+        console.log(data);
         try {
             await createUser(data);
             alert("Usuario creado correctamente");
@@ -60,11 +61,11 @@ export function Register() {
                 />
                 {errors.email && <span>Obligatorio ingresar el correo electronico</span>}
                 <input type="text" placeholder="Nombre" 
-                {...register('nombre', { required: true } )}
+                {...register('first_name', { required: true } )}
                 />
                 {errors.nombre && <span>Obligatorio ingresar el nombre</span>}
                 <input type="text" placeholder="Apellido" 
-                {...register('apellido', { required: true } )}
+                {...register('last_name', { required: true } )}
                 />
                 {errors.apellido && <span>Obligatorio ingresar el apellido</span>}
                 <Link to="/Iniciar-Sesion">¿Ya tienes cuenta?</Link>
